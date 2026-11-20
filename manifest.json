@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Groups from Bookmarks",
+  "short_name": "Tab Groups",
+  "version": "1.0.0",
+  "description": "Open folders of saved bookmarks as named tab groups. Reopen a group at any time to reset it to your original bookmarks.",
+  "homepage_url": "https://github.com/abbott567/tab-groups-from-bookmarks",
+  "minimum_chrome_version": "123",
+  "permissions": ["bookmarks", "tabGroups", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open a bookmark folder as a tab group",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

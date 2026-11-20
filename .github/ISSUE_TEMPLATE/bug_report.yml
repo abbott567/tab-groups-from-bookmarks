@@ -1,0 +1,43 @@
+name: Report a bug
+description: Something is not working as it should
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what went wrong. Add a screenshot if it helps, but remove anything private first, such as bookmark names or URLs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include how your "Tab Groups" folders are set up, if it is relevant.
+      placeholder: |
+        1. Open the extension panel
+        2. Select ...
+    validations:
+      required: true
+  - type: input
+    id: extension-version
+    attributes:
+      label: Extension version
+      description: You can find this at chrome://extensions
+      placeholder: "1.0.0"
+  - type: input
+    id: chrome-version
+    attributes:
+      label: Chrome version
+      description: You can find this at chrome://version
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+      placeholder: For example, macOS, Windows or ChromeOS

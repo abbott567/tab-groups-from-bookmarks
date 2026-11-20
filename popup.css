@@ -1,0 +1,376 @@
+/*
+ * Styles follow the craigabbott.co.uk design tokens.
+ * Colours use light-dark(), so the popup follows the system light or dark theme.
+ */
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 100 700;
+  src: url(fonts/ibm-plex-sans-latin-wght-normal.woff2) format("woff2-variations");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial");
+  size-adjust: 99.71%;
+  ascent-override: 102.8%;
+  descent-override: 27.58%;
+  line-gap-override: 0%;
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Brand palette (light, dark) */
+  --c-4-neutral: light-dark(#150307, #180f24);
+  --c-1-neutral: light-dark(#4b3237, #4e346d);
+  --c1-neutral: light-dark(#866a6f, #634785);
+  --c3-neutral: light-dark(#ecd5db, #c1b4c5);
+  --c4-neutral: light-dark(#fdeaef, #eae1ed);
+  --c-1-primary: light-dark(#a2315b, #d7428f);
+  --c0-primary: light-dark(#ca567d, #f075b5);
+  --c2-primary: light-dark(#ff8db2, #ffcce6);
+  --c-2-accent: light-dark(#382447, #936243);
+  --c-1-accent: light-dark(#4e385e, #c47645);
+  --c0-accent: light-dark(#644e75, #df8f5d);
+  --c1-accent: light-dark(#88719b, #f4b994);
+  --c-1-error: light-dark(#812433, #ec5151);
+  --c1-error: light-dark(#c5626b, #fc8d8d);
+
+  /* Roles */
+  --colour-page: light-dark(var(--c4-neutral), var(--c-4-neutral));
+  --colour-text-body: light-dark(var(--c-4-neutral), var(--c4-neutral));
+  --colour-text-subdued: light-dark(var(--c-1-neutral), var(--c3-neutral));
+  --colour-text-error: light-dark(var(--c-1-error), var(--c1-error));
+  --colour-text-link: var(--c0-accent);
+  --colour-text-link-hover: light-dark(var(--c-1-accent), var(--c1-accent));
+  --colour-text-link-visited: var(--c-2-accent);
+  --colour-border: var(--c1-neutral);
+  --colour-focus-highlight: light-dark(var(--c0-primary), var(--c2-primary));
+  --colour-focus-text: light-dark(var(--c-1-primary), var(--c2-primary));
+
+  /* Shape and spacing */
+  --focus-outline: 3px solid var(--colour-focus-highlight);
+  --focus-outline-offset: 4px;
+  --focus-box-shadow: 0 0 0 4px var(--colour-page);
+  --space-xxs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1.125rem;
+  --tap-size: 44px;
+
+  font-size: 16px;
+  color: var(--colour-text-body);
+  background-color: var(--colour-page);
+}
+
+::selection {
+  color: var(--colour-page);
+  background-color: light-dark(var(--c-1-primary), var(--c0-primary));
+}
+
+/*
+ * Chrome adds its own stylesheet to extension pages that sets
+ * body { font-family: system-ui; font-size: 75% }, so set these on body itself.
+ */
+body {
+  font-family: "IBM Plex Sans", "IBM Plex Sans Fallback", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-sizing: border-box;
+  width: 320px;
+  margin: 0;
+  padding: var(--space-s);
+}
+
+/* Hidden visually but still announced by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Folder list ---------- */
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Plain rows with a rule under each one */
+li {
+  padding-block: var(--space-xxs);
+  border-block-end: 1px solid var(--colour-border);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+button {
+  font: inherit;
+  color: var(--colour-text-body);
+  cursor: pointer;
+}
+
+button.open {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: var(--space-xs);
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: var(--tap-size);
+  padding: 0;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: start;
+  background: transparent;
+  border: 0;
+}
+
+/* Hover matches the site's links: colour change and a wavy underline */
+button.open:hover .name {
+  color: var(--colour-text-link-hover);
+  text-decoration: underline wavy;
+  text-underline-offset: 0.2em;
+}
+
+/* Long folder names wrap instead of pushing the count and swatch out */
+.name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.count {
+  flex: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--colour-text-subdued);
+}
+
+/* ---------- Colour swatches ---------- */
+
+/* Chrome's own tab group colours, so the swatch matches the real group. */
+[data-color="grey"]   { --swatch: light-dark(#5f6368, #bdc1c6); }
+[data-color="blue"]   { --swatch: light-dark(#1a73e8, #8ab4f8); }
+[data-color="red"]    { --swatch: light-dark(#d93025, #f28b82); }
+[data-color="yellow"] { --swatch: light-dark(#f9ab00, #fdd663); }
+[data-color="green"]  { --swatch: light-dark(#1e8e3e, #81c995); }
+[data-color="pink"]   { --swatch: light-dark(#d01884, #ff8bcb); }
+[data-color="purple"] { --swatch: light-dark(#9334e6, #d7aefb); }
+[data-color="cyan"]   { --swatch: light-dark(#007b83, #78d9ec); }
+[data-color="orange"] { --swatch: light-dark(#fa903e, #fcad70); }
+
+.swatch,
+.color {
+  flex: none;
+  padding: 0;
+  background: var(--swatch);
+  border: 2px solid var(--colour-page);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--colour-border);
+  forced-color-adjust: none;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+}
+
+.swatch:hover,
+.color:hover {
+  box-shadow: 0 0 0 2px var(--colour-text-link-hover);
+}
+
+.swatch[aria-expanded="true"] {
+  box-shadow: 0 0 0 2px var(--colour-text-body);
+}
+
+/* All nine colours on one row, as plain dots with no panel behind them */
+.palette {
+  display: grid;
+  grid-template-columns: repeat(9, 24px);
+  justify-content: space-between;
+  padding-block: var(--space-xxs);
+}
+
+.palette[hidden] {
+  display: none;
+}
+
+.color {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  box-shadow: none;
+}
+
+/* Selected colour: a ring with a small gap */
+.color[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 2px var(--colour-page),
+    0 0 0 4px var(--colour-text-body);
+}
+
+/* ---------- Status message ---------- */
+
+#status {
+  margin: 0 0 var(--space-xs);
+  color: var(--colour-text-subdued);
+}
+
+#status:empty {
+  display: none;
+}
+
+#status.error {
+  font-weight: 500;
+  color: var(--colour-text-error);
+}
+
+/* ---------- Empty state ---------- */
+
+#empty {
+  padding-block-end: var(--space-xs);
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  border-block-end: 1px solid var(--colour-border);
+}
+
+#empty[hidden],
+#folders[hidden] {
+  display: none;
+}
+
+#empty p {
+  margin: 0 0 var(--space-xs);
+  text-wrap: pretty; /* avoid a single word on the last line */
+}
+
+/* An action that looks like a link, matching the site's link style */
+.link-button {
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--colour-text-link);
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+  background: none;
+  border: 0;
+}
+
+.link-button:hover {
+  color: var(--colour-text-link-hover);
+  text-decoration-style: wavy;
+}
+
+.link-button:focus-visible {
+  color: var(--colour-focus-text);
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+  box-shadow: var(--focus-box-shadow);
+}
+
+.link-button:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+/* ---------- Footer and links ---------- */
+
+/* Bookmark manager link on the left, signature on the right */
+footer {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: var(--space-xs);
+  font-size: 0.875rem;
+}
+
+a {
+  color: var(--colour-text-link);
+  text-underline-offset: 0.125em;
+}
+
+a:visited {
+  text-decoration-color: var(--colour-text-link-visited);
+}
+
+a:hover {
+  color: var(--colour-text-link-hover);
+  text-decoration-style: wavy;
+  text-decoration-color: var(--colour-text-link-hover);
+}
+
+/* Signature: handwriting follows the text colour, underline and dot stay pink */
+.credit {
+  display: flex;
+  color: var(--colour-text-body);
+}
+
+.credit:hover {
+  color: var(--colour-text-link-hover);
+}
+
+.signature {
+  display: block;
+}
+
+.signature-accent {
+  fill: #f1419c;
+}
+
+/* ---------- Focus (from the site's focus layer) ---------- */
+
+.credit:focus-visible {
+  text-decoration: none;
+}
+
+a:focus-visible {
+  color: var(--colour-focus-text);
+  text-decoration-color: var(--colour-focus-highlight);
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+  box-shadow: var(--focus-box-shadow);
+}
+
+/* Smaller offset than the site's default so the ring stays inside the rules */
+button.open:focus-visible {
+  color: var(--colour-focus-text);
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+.swatch:focus-visible,
+.color:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 3px;
+}
+
+/* ---------- Windows High Contrast / forced colours ---------- */
+
+@media (forced-colors: active) {
+  .swatch,
+  .color {
+    border-color: Canvas;
+    box-shadow: 0 0 0 1px CanvasText;
+  }
+
+  .swatch[aria-expanded="true"],
+  .color[aria-pressed="true"] {
+    box-shadow: 0 0 0 3px Highlight;
+  }
+
+  .swatch:focus-visible,
+  .color:focus-visible {
+    outline-color: Highlight;
+  }
+}
